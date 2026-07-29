@@ -1,0 +1,10 @@
+{
+  "center_color_mix": 0.75,
+  "center_texture_scale": 1.0,
+  "color_radius": 0.1,
+  "texture_radius": 0.2,
+  "grid_size": 5,
+  "steps": 30,
+  "seed": 42,
+  "interpolation": "embedding"
+}
