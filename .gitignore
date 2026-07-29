@@ -4,6 +4,7 @@ __pycache__/
 .env
 models/
 sdxl_models/
+vendor/SADis/
 results/
 experiment_results/
 *.safetensors
