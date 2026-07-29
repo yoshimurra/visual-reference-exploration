@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+models/
+sdxl_models/
+results/
+experiment_results/
+*.safetensors
+*.bin
+*.ckpt
+pure_gray.png
