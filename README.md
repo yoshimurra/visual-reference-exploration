@@ -70,17 +70,31 @@ python experiments/run_grid.py \
 
 Use `--dry-run` to inspect all 25 commands without loading SDXL.
 
-## Local refinement
+## Local refinement from a selected cell
 
-Edit the center and radius values in `configs/local_grid.json`, then run:
+After the coarse grid finishes, select a cell from the contact sheet. Rows and columns are zero-based. For example, to refine around `row=2`, `col=3`:
+
+```bash
+python experiments/create_local_config.py \
+  --manifest experiment_results/coarse_grid/manifest.json \
+  --row 2 \
+  --col 3 \
+  --color-radius 0.10 \
+  --texture-radius 0.30 \
+  --output configs/local_grid_selected.json
+```
+
+This creates a 5 x 5 local search centered at the selected cell while preserving the coarse experiment's seed, steps, and interpolation mode. Then run:
 
 ```bash
 python experiments/run_grid.py \
-  --config configs/local_grid.json \
+  --config configs/local_grid_selected.json \
   --backend backend/infer_sadis_grid.py \
-  --output experiment_results/local_grid \
+  --output experiment_results/local_grid_row02_col03 \
   --low-memory
 ```
+
+Use `--grid-size`, `--color-radius`, and `--texture-radius` to change the local search resolution and range. Add `--force` when intentionally replacing an existing local config.
 
 ## Contact sheet
 
@@ -88,6 +102,14 @@ python experiments/run_grid.py \
 python experiments/make_contact_sheet.py \
   --input experiment_results/coarse_grid \
   --output experiment_results/coarse_grid.jpg
+```
+
+For the local grid:
+
+```bash
+python experiments/make_contact_sheet.py \
+  --input experiment_results/local_grid_row02_col03 \
+  --output experiment_results/local_grid_row02_col03.jpg
 ```
 
 ## Color-continuity diagnostic
